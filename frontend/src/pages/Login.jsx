@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { loginFailure, loginStart, loginSuccess } from '../redux/user/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Login() {
   const [formData, setFormData] = useState({})
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(false)
+  //const [error, setError] = useState(null)
+  //const [loading, setLoading] = useState(false)
+  const { loading, error } = useSelector((state) => state.user)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     setFormData({
@@ -17,7 +21,8 @@ export default function Login() {
     e.preventDefault()
     
     try {
-    setLoading(true)
+    //setLoading(true)
+    dispatch(loginStart())
 
     const res = await fetch('/api/auth/login', {
       method: 'POST',
@@ -28,16 +33,19 @@ export default function Login() {
     })
     const data = await res.json()
     if (data.success === false) {
-      setError(data.message)
-      setLoading(false)
+      //setError(data.message)
+      //setLoading(false)
+      dispatch(loginFailure(data.message))
       return
     }
-    setLoading(false)
-    setError(null)
+    //setLoading(false)
+    //setError(null)
+    dispatch(loginSuccess(data))
     navigate('/')
   } catch (error) {
-    setLoading(false)
-    setError(error.message)
+    //setLoading(false)
+    //setError(error.message)
+    dispatch(loginFailure({error: error.message}))
   }
   }
 
@@ -51,7 +59,7 @@ export default function Login() {
       </form>
       <div className='flex gap-2 mt-5'>
         <p>Dont have an account?</p>
-        <Link to='/signup'>
+        <Link to='/signup'>``
           <span className='text-blue-700'>Sign up</span>
         </Link>
       </div>
