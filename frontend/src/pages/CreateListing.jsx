@@ -9,13 +9,44 @@ export default function CreateListing() {
   const [uploading, setUploading] = useState(false)
   
   console.log(formData)
+  console.log(files)
+  console.log(uploading)
+  console.log(imageUploadError)
+
+ /* const handleImageSubmit = async () => {
+    try {
+      if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
+        setUploading(true);
+        setImageUploadError(false);
+  
+        const promises = files.map((file) => storeImage(file));
+        const urls = await Promise.all(promises);
+  
+        setFormData({ ...formData, imageUrls: formData.imageUrls.concat(urls) });
+        setImageUploadError(false);
+        setUploading(false);
+      } else if (files.length === 0) {
+        setImageUploadError('You have not uploaded any image!');
+        setUploading(false);
+      } else {
+        setImageUploadError('You can only upload 6 images per listing');
+        setUploading(false);
+      }
+    } catch (error) {
+      console.error('Image upload failed:', error);
+      setImageUploadError('Image upload failed (2mb max per image)');
+      setUploading(false);
+    }
+  };*/
+  
+
   const handleImageSubmit = () => {
     if (files.length > 0 && files.length + formData.imageUrls.lentgth < 7) {
         setUploading(true)
         setImageUploadError(false)
         const promises = []
 
-        for (let i = 0; i > files.length; i++) {
+        for (let i = 0; i < files.length; i++) {
             promises.push(storeImage(files[i]))
         }
         Promise.all(promises).then((urls) => {
@@ -25,25 +56,28 @@ export default function CreateListing() {
         }) .catch ((err) => {
             setImageUploadError('Image upload failed (2mb max per image)')
         })
-    } else if(files.length === 0) {
+    } 
+    else if(files.length === 0) {
         setImageUploadError('You have not uploaded any image!')
         setUploading(false)
     } else {
         setImageUploadError('You can only upload 6 images per listing')
         setUploading(false)
+        console.log('couldnt manage')
     }
   }
 
   const storeImage = async (file) => {
     return new Promise((resolve, reject) => {
         const storage = getStorage(app)
-        const fileName = new Date().getTime() + file.fileName
+        const fileName = new Date().getTime() + file.name
         const storageRef = ref(storage, fileName)
         const uploadTask = uploadBytesResumable(storageRef, file)
         uploadTask.on("state_changed",
           (snapshot) => {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
             console.log(`upload is ${progress}% done`)
+            console.log('upload is ' + progress + '% done')
           },
           (error) => {
             reject(error)
