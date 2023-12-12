@@ -46,8 +46,7 @@ const listingSchema = new mongoose.Schema({
         required: true
     },
     userRef: {
-        type: String,
-        required: true
+        type: String
     }
 }, {timestamps: true})
 
