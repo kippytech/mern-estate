@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { app } from '../firebase'
 import { deleteUserFailure, deleteUserStart, deleteUserSuccess, logoutUserFailure, logoutUserStart, logoutUserSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice'
@@ -133,6 +134,9 @@ const handleFileUpload = (file) => {
         <input type="text" placeholder='username' defaultValue={currentUser.username} className='border p-3 rounded-lg' onChange={handleChange} id='username' />
         <input type="password" placeholder='password' className='border p-3 rounded-lg' onChange={handleChange} id='password' />
         <button disabled={loading}type="submit" className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-90 disabled:opacity-80'>{loading ? 'loading...' : 'update'}</button>
+        <Link to='/create-listing' className='bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-90'>
+          Create Listing
+        </Link>
       </form>
       <div className='flex justify-between mt-5'>
         <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>Delete Account</span>
