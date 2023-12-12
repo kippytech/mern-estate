@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const userRouter = require('./routes/userRoutes')
 const authRouter = require('./routes/authRoute')
+const listingRouter = require('./routes/listingRoute')
 
 const app = express()
 
@@ -23,6 +24,7 @@ app.use(cookieParser())
 
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
+app.use('/api/listing', listingRouter)
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500

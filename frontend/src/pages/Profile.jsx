@@ -138,7 +138,7 @@ const handleFileUpload = (file) => {
         <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>Delete Account</span>
         <span onClick={handleLogout} className='text-red-700 cursor-pointer'>Logout</span>
       </div>
-      <p className='text-red-700 mt-5'>{error ? error : ''}</p>
+      <p className='text-red-700 mt-5'>{error ? error.message : ''}</p>
       <p className='text-green-700 mt-5'>{updateSuccess ? 'User successfully updated!' : ''}</p>
     </div>
   )
