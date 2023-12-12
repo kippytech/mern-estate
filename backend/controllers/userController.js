@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const User = require('../models/userModel')
 const errorHandler = require('../utils/error')
 const bcryptjs = require('bcryptjs')
+const Listing = require('../models/listingModel')
 
 const getUsers = (req, res) => {
     res.json({mssg: 'maskani here'})
@@ -41,8 +42,19 @@ const deleteUser = async (req, res , next) => {
     }
 }
 
+const getUserListings = async (req, res , next) => {
+  if (req.user.id !== req.params.id) return next(errorHandler(401, 'You can only view your own listing!'))
+  try {
+    const listing = await Listing.find({ userRef: req.params.id })
+    res.status(200).json(listing)
+  } catch (error) {
+      next(error)
+  }
+}
+
 module.exports = {
-    getUsers,
+     getUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserListings
 }
