@@ -22,6 +22,8 @@ export default function Contact({ listing }) {
         fetchLandlord()
     }, [listing.userRef])
 
+    Contact.propTypes = { listing }
+
   return (
     <>
       {landlord && (
