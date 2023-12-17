@@ -64,7 +64,7 @@ export default function CreateListing() {
     if (files.length > 0 && files.length + formData.imageUrls.lentgth < 7) {
         setUploading(true)
         setImageUploadError(false)
-        const promises = []
+        let promises = []
 
         for (let i = 0; i < files.length; i++) {
             promises.push(storeImage(files[i]))
