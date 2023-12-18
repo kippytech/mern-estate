@@ -2,6 +2,7 @@ const express = require('express')
 const { getUsers, updateUser, deleteUser, getUserListings, getUser } = require('../controllers/userController')
 const verifyToken = require('../utils/verifyUser')
 
+
 const router = express.Router()
 
 router.get('/users', getUsers)

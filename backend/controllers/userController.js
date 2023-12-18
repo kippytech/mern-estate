@@ -25,7 +25,7 @@ const updateUser = async (req, res , next) => {
 
       const { password, ...rest } = updatedUser._doc
 
-      res.status(200).json({rest})
+      res.status(200).json(rest)
     } catch (error) {
         next(error)
     }
@@ -45,7 +45,7 @@ const deleteUser = async (req, res , next) => {
 const getUserListings = async (req, res , next) => {
   if (req.user.id !== req.params.id) return next(errorHandler(401, 'You can only view your own listing!'))
   try {
-    const listing = await Listing.find({ address: req.params.id })
+    const listing = await Listing.find({ userRef: req.params.id })
     res.status(200).json(listing)
   } catch (error) {
       next(error)

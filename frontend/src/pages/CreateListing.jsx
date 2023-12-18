@@ -61,7 +61,7 @@ export default function CreateListing() {
   
 
   const handleImageSubmit = () => {
-    if (files.length > 0 && files.length + formData.imageUrls.lentgth < 7) {
+    if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
         setUploading(true)
         setImageUploadError(false)
         let promises = []
@@ -112,9 +112,9 @@ export default function CreateListing() {
 
   const handleRemoveImage = (index) => {
     setFormData({
-        ...formData, imageUrls: formData.imageUrls.filter((_, i) => {
+        ...formData, imageUrls: formData.imageUrls.filter((_, i) => 
             i !== index
-        })
+        )
     })
   }
 
@@ -200,11 +200,11 @@ export default function CreateListing() {
               </div>
               <div className='flex flex-wrap gap-6'>
                 <div className='flex items-center gap-2'>
-                    <input value={formData.bedrooms} onChange={handleChange} className='border border-gray-300 p-3 rounded-lg' type="number" id='bedroom' min={1} max={15} required />
+                    <input value={formData.bedrooms} onChange={handleChange} className='border border-gray-300 p-3 rounded-lg' type="number" id='bedrooms' min={1} max={15} required />
                     <p>Beds</p>
                 </div>
                 <div className='flex items-center gap-2'>
-                    <input value={formData.bathrooms} onChange={handleChange} className='border border-gray-300 p-3 rounded-lg' type="number" id='bathroom' min={1} max={15} required />
+                    <input value={formData.bathrooms} onChange={handleChange} className='border border-gray-300 p-3 rounded-lg' type="number" id='bathrooms' min={1} max={15} required />
                     <p>Bathrooms</p>
                 </div>
                 <div className='flex items-center gap-2'>
@@ -238,7 +238,7 @@ export default function CreateListing() {
                 {
                     formData.imageUrls.length > 0 && formData.imageUrls.map((url, index) => (
                         <div key={url} className='flex justify-between p-3 border items-center'>
-                            <img src="url" alt="listing-image" className='w-20 h-20 object-contain rounded-lg' />
+                            <img src={url} alt="listing-image" className='w-20 h-20 object-contain rounded-lg' />
                             <button onClick={() => handleRemoveImage(index)} className='p-3 text-red-700 rounded-lg uppercase hover:opacity-80' type="button">Delete</button>
                         </div>
                     ))
