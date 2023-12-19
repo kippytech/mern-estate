@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
+const path = require('path')
 const userRouter = require('./routes/userRoutes')
 const authRouter = require('./routes/authRoute')
 const listingRouter = require('./routes/listingRoute')
@@ -19,12 +20,19 @@ mongoose.connect(process.env.MONGO_URI)
     console.log(error)
   })
 
+const __dirname = path.resolve()
+
 app.use(express.json())
 app.use(cookieParser())
 
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
 app.use('/api/listing', listingRouter)
+
+app.use(express.static(path.join(__dirname, '/frontend/dist')))
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'))
+})
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500
