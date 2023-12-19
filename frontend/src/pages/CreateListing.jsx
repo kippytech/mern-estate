@@ -74,7 +74,7 @@ export default function CreateListing() {
             setImageUploadError(false)
             setUploading(false)
         }) .catch ((err) => {
-            setImageUploadError('Image upload failed (2mb max per image)')
+            setImageUploadError('Image upload failed (4mb max per image)')
         })
     } 
     else if(files.length === 0) {
