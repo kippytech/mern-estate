@@ -20,7 +20,7 @@ mongoose.connect(process.env.MONGO_URI)
     console.log(error)
   })
 
-const __dirname = path.resolve()
+__dirname = path.resolve()
 
 app.use(express.json())
 app.use(cookieParser())
